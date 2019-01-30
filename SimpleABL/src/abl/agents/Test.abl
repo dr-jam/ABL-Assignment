@@ -9,8 +9,25 @@ behaving_entity Test {
 	
 	register act fire(int, int, int, int) with Fire;
 	
+	register wme BotWME with BotSensor;
+	
+	wme AmmoWME {
+		int count;
+		int botId;
+	}
+	
+	int MAX_AMMO = 5;
+	
 	sequential behavior fireABullet() {
-		act fire(0,0,1,1);
+		precondition {
+			(BotWME id::id locationX::botX locationY::botY)
+			ammoWME = (AmmoWME botId==id count>0 count::count)
+		}
+		act fire(botX,botY,1,1);
+		mental_act {
+			ammoWME.setCount(count - 1); 
+		}
+		subgoal Wait(500);
 	}
 	
 	sequential behavior Wait(int milliseconds) {
@@ -22,11 +39,38 @@ behaving_entity Test {
 	    with ( success_test { (System.currentTimeMillis() > finish) } ) wait;
 	}
 	
+	sequential behavior initializeBots() {
+		precondition {
+			(BotWME id::id)
+			!(AmmoWME botId==id)
+		}
+		specificity 2;
+		mental_act{
+			AmmoWME ammoWME = new AmmoWME();
+			ammoWME.setCount(MAX_AMMO);
+			ammoWME.setBotId(id);
+			BehavingEntity.getBehavingEntity().addWME(ammoWME);
+		}
+		subgoal initializeBots();
+	}
+	
+	sequential behavior initializeBots() {
+		precondition {
+			(BotWME id::id)
+			!(AmmoWME botId!=id)
+		}
+		specificity 1;
+		succeed_step;
+	}
+	
 	initial_tree {
-		mental_act {
+		with (priority 11) mental_act {
 			System.out.println("The Test agent has started on initial_tree.");
 		}
-		subgoal fireABullet();
+		
+		with (priority 10, persistent when_fails) subgoal initializeBots();
+		
+		with (priority 1, persistent) subgoal fireABullet();
 		
 	}
 }

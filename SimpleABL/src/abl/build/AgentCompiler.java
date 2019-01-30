@@ -22,10 +22,10 @@ public class AgentCompiler {
 	public static void main(String[] args) {
 
 		if (debugMode) {
-			Abl.main(new String[] { "-g2", "-d", "src", "src/abl/agents/ChaserAgent.abl" });
+			Abl.main(new String[] { "-g2", "-d", "src", "src/abl/agents/Test.abl" });
 		}
 		else {
-			Abl.main(new String[] { "-d", "src", "src/abl/agents/ChaserAgent.abl" });
+			Abl.main(new String[] { "-d", "src", "src/abl/agents/Test.abl" });
 		}
 	}
 }
