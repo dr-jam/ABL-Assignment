@@ -8,15 +8,15 @@ For this assignment, you will be authoring rudimentary, intermediate, and advanc
 
 Starter Tasks
 --------------------
-* Add a move action that takes a (int xdir, int ydir, int id) as input.
-* Make a MoveTo behavior that moves a bot to a target location over time.
+* Add a move action that takes a (int xdir, int ydir, int id) as input. This action should set the direction of movement for the agent and not automatically position the agent at a coordinate.
+* Make a MoveTo(int id, int xpos, int ypos) behavior that moves the bot that matches the id argument to a target location over time. Note that this is not an action but a behavior that handles moving an agent over time from its current position to a destination. This behavior should succeed when the bot reseaches the destination.
 * Add a SetColor action that takes (int r, int b, int g, int id).
 * Add color sensing to the BotWME (this includes changes to BotSensor.java and BotWME.java).
 
 Intermediate Tasks
 --------------------
-* Add on action that creates a new Bot
-* Create 4 bots and have them keep a formation around the player.
+* Add on action that creates a new Bot.
+* Create 4 bots and have them keep a formation around the player. Your MoveTo behavior will be beneficial here.
 
 Advanced Tasks
 --------------------
@@ -41,7 +41,12 @@ This assigment will be graded on a 100 point scale.
 
 Turn-in
 --------------------
-Push your code to your group's GitHub Classroom repository. The master branch will be graded.
+Push your code to your group's GitHub Classroom repository. The master branch will be graded. 
+
+Each task should be in its own ABL agent file:
+* *Starter.abl* Demonstrates the move action, the MoveTo Behavior, the setColor action, and color sensing from the BotWME.
+* *Intermediate.abl* Implements and executes an action that creates new Bots. Demonstrates four bots in a formation around the player.
+* *Advanced.abl* Performs your implementation of multi-bot social interaction. Please add a description of your playable experience at the top of your the README.md file that includes a script or walkthrough on how to interact with your agent and what social interaction you have modelled. 
 
 
 Questions and Answers
