@@ -66,3 +66,7 @@ Questions and Answers
 *Answer:* You have the debug variable set to true in AgentCompiler.java. This tells ABL to run your agent in debug mode which opens the debugger window and automatically pauses your agent before its first decision cycle. Press the **Continue** button to proceed.
 
 [Screenshot of the ABL debugger](misc/ABLdebugger.png)
+
+*Quesion:* I added multiple bots the the Chaser.abl agent but the are mostly moving vertically when they should be moving horizonatally. What's the problem and how do I fix it?
+
+*Answer:* Part of the answer can be found in Ben Weber's comment above the [block of move behavior declarations](https://github.com/dr-jam/ABL-Assignment/blob/3f1941208d478b5177a295fd5a7fa60d15a0cbc6/SimpleABL/src/abl/agents/ChaserAgent.abl#L79): moving vertically takes priority as those behaviors are of higher specificity when compared to the horizontal movement variants of the move behavior. Another confounding factor is the move behaviors in the Chaser.abl agent are made for a single Bot and do not handle multiple bots and their ids. If you wanted to fix this, you could modify the move behaviors to take an integer argument that holds the id of the bot to move. You could call these id-senstive behaviors via subgoaling one time for each agent. Alternatively, you could add a data member to the bot keeps the state of movement for the bot. With this new information, you could only move bots that have not recently be subject to a move action.
